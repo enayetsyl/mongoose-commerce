@@ -11,7 +11,13 @@ app.use(cors());
 app.use(express.json());
 
 // Specify the allowed origins
-const allowedOrigins = ['http://localhost:5173', 'https://your.com'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173/',
+  'http://localhost:5174',
+  'http://127.0.0.1:5174/',
+  'https://yourdomain.com',
+];
 
 // CHANGE THE ABOVE SECOND DOMAIN TO THE REAL DOMAIN OF THE CUSTOMER.
 
@@ -29,13 +35,13 @@ app.use(
   })
 );
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ktgpsav.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pcjsmxm.mongodb.net/?retryWrites=true&w=majority`;
 // CHANGE USER ID AND PASSWORD IN THE ABOVE URI
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  dbName: 'mongoosecom', //CHANGE THE DB NAME HERE
+  dbName: 'testingDB', //CHANGE THE DB NAME HERE
 });
 
 const connection = mongoose.connection;
@@ -56,7 +62,7 @@ connection.on('disconnected', () => {
     mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      dbName: 'mongoosecom', // CHANGE THE DB NAME HERE
+      dbName: 'testingDB', // CHANGE THE DB NAME HERE
     });
   }, 5000); // Adjust the delay as needed
 });
