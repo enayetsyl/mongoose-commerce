@@ -5,13 +5,13 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 const app = express();
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
 
 // Specify the allowed origins
-const allowedOrigins = ['http://localhost:5173', 'https://your.com'];
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174','https://your.com'];
 
 // CHANGE THE ABOVE SECOND DOMAIN TO THE REAL DOMAIN OF THE CUSTOMER.
 
@@ -125,13 +125,31 @@ const blogSchema = new mongoose.Schema({
   featured_image: String,
 });
 
+const userSchema = new mongoose.Schema({
+  email: String,
+  role: String
+})
 const Blog = mongoose.model('Blog', blogSchema);
 
 const Product = mongoose.model('Product', productSchema);
 
 const Order = mongoose.model('Order', orderSchema);
 
+const User = mongoose.model('User', userSchema);
+
 // GET ROUTES ------------
+
+// FOR ALL USERS
+
+app.get('/api/v1/allUsers', async(req, res) => {
+  try{
+    const result = await User.find()
+    res.send(result)
+  } catch (error){
+    console.error('Error fetching users:', error.message);
+    res.status(500).send('Internal Server Error');
+  }
+})
 
 // FOR ALL PRODUCTS
 
@@ -205,11 +223,27 @@ app.get('/api/v1/allblogs/:id', async (req, res) => {
 
 // POST ROUTES ------------
 
+// FOR ADD USER POST ROUTE
+app.post('/api/v1/user', async(req, res) => {
+  try{
+    const user = new User(req.body);
+    const result = await user.save();
+    res.send(result)
+    console.log(user)
+  }
+  catch(error){
+    console.error('Error adding user:', error.message);
+    res.status(500).send('Internal Server Error');
+  }
+})
+
+
 // FOR ADD PRODUCT POST ROUTE
 app.post('/api/v1/addproduct', async (req, res) => {
   try {
     const product = new Product(req.body);
     const result = await product.save();
+    console.log(result)
     res.send(result);
   } catch (error) {
     console.error('Error adding product:', error.message);
@@ -242,6 +276,25 @@ app.post('/api/v1/addblog', async (req, res) => {
 });
 
 // PATCH ROUTES ------------
+
+// MAKE ADMIN PATCH ROUTE
+app.patch('/api/v1/makeadmin/:id', async(req, res) => {
+  const id = req.params.id;
+  try{
+    result = await User.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          role:'admin',
+        }
+      }, {new: true}
+    ) 
+    res.send(result)
+  }catch(error){
+    console.error('Error updating admin:', error.message);
+    res.status(500).send('Internal Server Error');
+  }
+})
 
 // EDIT ORDER PATCH ROUTE
 app.patch('/api/v1/order/:id', async (req, res) => {
@@ -290,6 +343,18 @@ app.patch('/api/v1/allblogs/:id', async (req, res) => {
 });
 
 // DELETE ROUTES ------------
+
+// FOR DELETE USER ROUTE
+app.delete('/api/v1/userDelete/:id', async (req, res) => {
+  const id = req.params.id;
+  try{
+    const result = await User.findByIdAndDelete(id);
+    res.send(result)
+  }catch (error){
+    console.error('Error deleting user:', error.message);
+    res.status(500).send('Internal Server Error');
+  }
+})
 
 // FOR DELETE PRODUCT ROUTE
 app.delete('/api/v1/allproduct/:id', async (req, res) => {
