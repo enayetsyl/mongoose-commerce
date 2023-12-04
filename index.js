@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // Specify the allowed origins
-const allowedOrigins = ['http://localhost:5173', 'https://yourdomain.com'];
+const allowedOrigins = ['http://localhost:5173', 'https://your.com'];
 
 // CHANGE THE ABOVE SECOND DOMAIN TO THE REAL DOMAIN OF THE CUSTOMER.
 
