@@ -151,6 +151,24 @@ app.get('/api/v1/allUsers', async(req, res) => {
   }
 })
 
+// INDIVIDUAL USER GET ROUTE
+app.get('/api/v1/user', async(req, res) => {
+  try{
+    const userEmail = req.query.email;
+    console.log(userEmail)
+    const user = await User.findOne({email: userEmail})
+    if (user){
+      res.json(user)
+    } else {
+      res.status(404).json({ message: 'User not found'})
+    }
+  }
+  catch(error){
+    console.error('Error fetching user data:', error.message);
+    res.status(500).send('Internal Server Error');
+  }
+})
+
 // FOR ALL PRODUCTS
 
 app.get('/api/v1/allproducts', async (req, res) => {
