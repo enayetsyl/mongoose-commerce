@@ -16,10 +16,8 @@ const allowedOrigins = [
   'http://127.0.0.1:5173/',
   'http://localhost:5174',
   'http://127.0.0.1:5174/',
-  'https://yourdomain.com',
+  'https://yourdomain.com', // CHANGE THE DOMAIN WITH THE REAL DOMAIN OF THE CUSTOMER.
 ];
-
-// CHANGE THE ABOVE SECOND DOMAIN TO THE REAL DOMAIN OF THE CUSTOMER.
 
 // CORS configuration with allowed origins
 app.use(
