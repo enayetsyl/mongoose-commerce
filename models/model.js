@@ -1,4 +1,4 @@
-const mongoose = require('./db');
+const mongoose = require('../db');
 
 const productSchema = new mongoose.Schema({
   title: String,
@@ -55,8 +55,8 @@ const blogSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
   email: String,
-  role: String
-})
+  role: String,
+});
 const Blog = mongoose.model('Blog', blogSchema);
 
 const Product = mongoose.model('Product', productSchema);
@@ -65,4 +65,4 @@ const Order = mongoose.model('Order', orderSchema);
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = { Blog, Product, Order, User }
+module.exports = { Blog, Product, Order, User };
