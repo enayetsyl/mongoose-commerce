@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Blog } = require('./model');
+const { Blog } = require('../models/model');
 
 // Define blog routes...
 // ALL BLOGS GET ROUTE
@@ -66,6 +66,5 @@ router.delete('/allblogs/:id', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-
 
 module.exports = router;

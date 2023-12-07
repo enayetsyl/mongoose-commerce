@@ -4,12 +4,11 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const mongoose = require('./db');
 require('dotenv').config();
 
-const { corsOptions, errorHandler } = require('./middleware');
-const { Blog, Product, Order, User } = require('./model');
-const userRoutes = require('./userRoutes');
-const productRoutes = require('./productRoutes');
-const orderRoutes = require('./orderRoutes');
-const blogRoutes = require('./blogRoutes');
+const { corsOptions, errorHandler } = require('./middlewares/middleware');
+const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const blogRoutes = require('./routes/blogRoutes');
 
 const app = express();
 const port = process.env.PORT || 5000;
