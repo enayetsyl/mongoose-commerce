@@ -2,12 +2,12 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ktgpsav.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pcjsmxm.mongodb.net/?retryWrites=true&w=majority`;
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  dbName: 'mongoosecom',
+  dbName: 'userAuth',
 });
 
 const connection = mongoose.connection;
@@ -23,7 +23,7 @@ connection.on('disconnected', () => {
     mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      dbName: 'mongoosecom',
+      dbName: 'userAuth',
     });
   }, 5000);
 });

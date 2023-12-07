@@ -18,7 +18,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
-app.use('/api/v1', userRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/v1', productRoutes);
 app.use('/api/v1', orderRoutes);
 app.use('/api/v1', blogRoutes);
