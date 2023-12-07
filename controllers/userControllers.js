@@ -17,13 +17,19 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('User already exists with this email!');
   }
 
-  const newUser = await User.create({ name, email, password });
+  const newUser = await User.create({
+    name,
+    email,
+    password,
+    role: 'user',
+  });
 
   if (newUser) {
     res.status(201).json({
       _id: newUser._id,
       name: newUser.name,
       email: newUser.email,
+      role: newUser.role,
       token: generateToken(newUser._id),
     });
   } else {
@@ -38,12 +44,15 @@ const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
-    res.json({
+    const userData = {
       _id: user._id,
       name: user.name,
       email: user.email,
+      role: user.role,
       token: generateToken(user._id),
-    });
+    };
+    res.json(userData);
+    console.log(userData);
   } else {
     res.status(401);
     throw new Error('Invalid email or password!');
