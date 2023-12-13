@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Product } = require('./model');
+const { Product } = require('../models/model');
 
 // FOR ALL PRODUCTS
 
@@ -35,9 +35,9 @@ router.get('/allproducts/:id', async (req, res) => {
 router.post('/addproduct', async (req, res) => {
   try {
     const product = new Product(req.body);
-    console.log('req.body', product)
+    console.log('req.body', product);
     const result = await product.save();
-    console.log('result', result)
+    console.log('result', result);
     res.send(result);
   } catch (error) {
     console.error('Error adding product:', error.message);
