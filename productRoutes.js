@@ -5,8 +5,12 @@ const { Product } = require('./model');
 // FOR ALL PRODUCTS
 
 router.get('/allproducts', async (req, res) => {
+  const page = req.query._page || 1;
+  const limit = req.query._limit || 9
   try {
-    const result = await Product.find();
+    const result = await Product.find() 
+    .limit(parseInt(limit))
+    .skip((page ) * limit);
     res.send(result);
   } catch (error) {
     console.error('Error fetching produts:', error.message);
@@ -14,10 +18,11 @@ router.get('/allproducts', async (req, res) => {
   }
 });
 
-// EDIT PRODUCT GET ROUTE
+// SINGLE PRODUCT GET ROUTE
 router.get('/allproducts/:id', async (req, res) => {
   try {
     const id = req.params.id;
+    console.log('single product get id', id)
     const result = await Product.findById(id);
     res.send(result);
   } catch (error) {

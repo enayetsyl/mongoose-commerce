@@ -7,7 +7,7 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  dbName: 'mongoosecom',
+  dbName: 'basicInfiniteScroll',
 });
 
 const connection = mongoose.connection;
@@ -23,7 +23,7 @@ connection.on('disconnected', () => {
     mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      dbName: 'mongoosecom',
+      dbName: 'basicInfiniteScroll',
     });
   }, 5000);
 });
