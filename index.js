@@ -11,7 +11,7 @@ const orderRoutes = require('./routes/orderRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 
 const app = express();
-const port = process.env.PORT || 1111;
+const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors(corsOptions));
@@ -28,7 +28,7 @@ app.use(errorHandler);
 
 // Home route
 app.get('/', (req, res) => {
-  res.send('ECOMMERCE server is running!');
+  res.send('tanstack scroll  server is running!');
 });
 
 // Server listening

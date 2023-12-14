@@ -4,19 +4,44 @@ const { Product } = require('../models/model');
 
 // FOR ALL PRODUCTS
 
+// router.get('/allproducts', async (req, res) => {
+//   const page = req.query._page || 1;
+//   const limit = req.query.offset || 9
+//   console.log('offset page', page)
+//   console.log('limit', limit)
+//   try {
+//     const result = await Product.find() 
+//     .limit(parseInt(limit))
+//     .skip((page ) * limit);
+//     res.send(result);
+//   } catch (error) {
+//     console.error('Error fetching produts:', error.message);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
 router.get('/allproducts', async (req, res) => {
-  const page = req.query._page || 1;
-  const limit = req.query._limit || 9
+  const page = req.query.offset;
+  const limit = req.query.limit;
+  console.log('offset page', page);
+  console.log('limit', limit);
   try {
-    const result = await Product.find() 
-    .limit(parseInt(limit))
-    .skip((page ) * limit);
-    res.send(result);
+    const [products, productCount] = await Promise.all([
+      Product.find().limit(parseInt(limit)).skip((page) * limit),
+      Product.countDocuments(), // Count total number of products
+    ]);
+
+    res.send({
+      products,
+      productCount,
+    });
   } catch (error) {
-    console.error('Error fetching produts:', error.message);
+    console.error('Error fetching products:', error.message);
     res.status(500).send('Internal Server Error');
   }
 });
+
+
 
 // SINGLE PRODUCT GET ROUTE
 router.get('/allproducts/:id', async (req, res) => {
